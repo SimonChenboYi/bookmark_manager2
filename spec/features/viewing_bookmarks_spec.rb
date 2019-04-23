@@ -4,10 +4,10 @@ feature 'Viewing bookmarks' do
     expect(page).to have_content "Bookmark Manager"
   end
 
-  scenario 'viewing multiple bookmarks' do 
+  scenario 'viewing multiple bookmarks' do
     visit '/bookmarks'
-    expect(page).to have_content "www.google.com"
-    expect(page).to have_content "www.youtube.com"
-    expect(page).to have_content "www.reddit.com"
+    expect(page).to have_content "http://www.makersacademy.com"
+    expect(page).to have_content "http://www.destroyallsoftware.com"
+    expect(page).to have_content "http://www.google.com"
   end
 end
