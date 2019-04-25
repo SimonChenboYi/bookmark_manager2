@@ -44,4 +44,32 @@ describe Bookmark do
       expect(urls).to eq(["http://www.reddit.com", "http://www.facebook.com"])
     end
   end
+
+  describe '.update' do
+    it 'update a bookmark' do
+      Bookmark.create(url: "http://www.reddit.com", title: 'Reddit')
+      bookmark = Bookmark.create(url: "http://www.youtube.com", title: 'Youtube')
+      Bookmark.create(url: "http://www.facebook.com", title: 'Facebook')
+      urls = Bookmark.all.map { |bookmark| bookmark.url }
+      expect(urls).to eq(["http://www.reddit.com", "http://www.youtube.com", "http://www.facebook.com"])
+      Bookmark.update(id: bookmark.id, title:"Instagram" , url: "http://www.instagram.com")
+
+      urls = Bookmark.all.map { |bookmark| bookmark.url }
+      expect(urls).to eq(["http://www.reddit.com", "http://www.instagram.com",  "http://www.facebook.com"])
+    end
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end
