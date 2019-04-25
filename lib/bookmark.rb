@@ -37,8 +37,17 @@ class Bookmark
 
   def self.update(id:, title:, url:)
     connection = valid_connection
-    connection.exec("UPDATE bookmarks
-      SET title = '#{title}', url = '#{url}' WHERE id = #{id};")
+    result = connection.exec("UPDATE bookmarks SET title = '#{title}',
+                    url = '#{url}' WHERE id = #{id} RETURNING id, url, title;")
+    Bookmark.new(id: result[0]['id'], title: result[0]['title'],
+                 url: result[0]['url'])
+  end
+
+  def self.find(id:)
+    connection = valid_connection
+    result = connection.exec("SELECT * FROM bookmarks WHERE id = #{id};")
+    Bookmark.new(id: result[0]['id'], title: result[0]['title'],
+                 url: result[0]['url'])
   end
 
   def self.valid_connection

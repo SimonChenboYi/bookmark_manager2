@@ -1,11 +1,11 @@
-<form action="/bookmarks/update_<%=@id%>" method="post">
+<form action="/bookmarks/<%=@bookmark.id%>" method="post">
   <label>Update the Bookmark</label><br>
-  <input type="hidden" value=@id name="id"/>
-  <input type="hidden" value="PUT" name="_method"/>
+  <input type="hidden" value=<%=@bookmark.id%> name="id"/>
+  <input type="hidden" value="PATCH" name="_method"/>
 
   <label>URL</label>
-  <input type="text" name="url" placeholder="NEW_URL"/><br>
+  <input type="text" name="url" value=<%=@bookmark.url%>><br>
   <label>Title</label>
-  <input type="text" name="title" placeholder="NEW_Title"/><br>
+  <input type="text" name="title" value=<%=@bookmark.title%>><br>
   <input type="submit" value="update bookmark"/>
 </form>

@@ -6,14 +6,14 @@
     <a href="<%= bookmark.url %>">
       <%= bookmark.title %>
     </a>
-    <form action="/bookmarks/delete_<%= bookmark.id %>" method="post" id="<%= bookmark.id %>">
+    <form action="/bookmarks/<%= bookmark.id %>" method="post" id="<%= bookmark.id %>">
 
       <input type="hidden" value="<%= bookmark.id %>" name="id"/>
       <input type="hidden" value="DELETE" name="_method"/>
     <input type="submit" value="delete"/>
     </form>
 
-    <form action="/bookmarks/update" method="post" id="<%= bookmark.id %>">
+    <form action="/bookmarks/<%= bookmark.id %>/update" method="post" id="<%= bookmark.id %>">
 
       <input type="hidden" value="<%= bookmark.id %>" name="id"/>
     <input type="submit" value="update"/>
