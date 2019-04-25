@@ -8,6 +8,6 @@ feature 'editing bookmarks' do
     click_button('update')
 
     expect(page).to_not have_link('Reddit', href: 'http://www.reddit.com')
-    expect(page).to_not have_link('Youtube', href: 'http://www.youtube.com')
+    expect(page).to have_link('Youtube', href: 'http://www.youtube.com')
   end
 end

@@ -2,8 +2,7 @@ require 'sinatra/base'
 require './lib/bookmark'
 
 class BookmarkManager < Sinatra::Base
-enable :session, :method_override
-
+  enable :session, :method_override
 
   get '/' do
     'Bookmark Manager'
@@ -28,13 +27,16 @@ enable :session, :method_override
     redirect '/bookmarks'
   end
 
-  put '/bookmarks/delete_:id' do
-    p params
+  post '/bookmarks/update' do
+    @id = params[:id]
+    erb :'bookmarks/update'
+  end
+
+  put '/bookmarks/update_:id' do
+    # p params
     Bookmark.update(id: params[:id], title: params[:title], url: params[:url])
     redirect '/bookmarks'
   end
 
-
-
-  run! if app_file == $0
+  run! if app_file == $PROGRAM_NAME
 end

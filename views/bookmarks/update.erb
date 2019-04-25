@@ -1,0 +1,11 @@
+<form action="/bookmarks/update_<%=@id%>" method="post">
+  <label>Update the Bookmark</label><br>
+  <input type="hidden" value=@id name="id"/>
+  <input type="hidden" value="PUT" name="_method"/>
+
+  <label>URL</label>
+  <input type="text" name="url" placeholder="NEW_URL"/><br>
+  <label>Title</label>
+  <input type="text" name="title" placeholder="NEW_Title"/><br>
+  <input type="submit" value="update bookmark"/>
+</form>
