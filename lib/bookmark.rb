@@ -1,4 +1,5 @@
 require_relative 'database_connection'
+require 'uri'
 
 class Bookmark
   attr_reader :id, :title, :url
@@ -19,6 +20,8 @@ class Bookmark
   end
 
   def self.create(url:, title:)
+    return false unless is_url?(url)
+
     result = DatabaseConnection.query("INSERT INTO bookmarks (url, title)
                               VALUES('#{url}', '#{title}')
                               RETURNING id, url, title;")
@@ -31,6 +34,8 @@ class Bookmark
   end
 
   def self.update(id:, title:, url:)
+    return false unless is_url?(url)
+
     result = DatabaseConnection.query("UPDATE bookmarks SET title = '#{title}',
                     url = '#{url}' WHERE id = #{id} RETURNING id, url, title;")
     Bookmark.new(id: result[0]['id'], title: result[0]['title'],
@@ -42,5 +47,11 @@ class Bookmark
                                       WHERE id = #{id};")
     Bookmark.new(id: result[0]['id'], title: result[0]['title'],
                  url: result[0]['url'])
+  end
+
+  private
+
+  def self.is_url?(url)
+    url =~ /\A#{URI.regexp(%w[http https])}\z/
   end
 end

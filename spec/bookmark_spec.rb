@@ -30,6 +30,12 @@ describe Bookmark do
       expect(bookmark.title).to eq 'Reddit'
       expect(bookmark.url).to eq 'http://www.reddit.com'
     end
+
+    it 'does not create a new bookmark if the URL is not valid' do
+      Bookmark.create(url: 'not a real bookmark', title: 'not a real bookmark')
+      urls = Bookmark.all.map(&:url)
+      expect(urls).not_to include 'not a real bookmark'
+    end
   end
 
   describe '.delete' do
@@ -62,6 +68,16 @@ describe Bookmark do
       urls = Bookmark.all.map(&:url)
       expect(urls).to eq(['http://www.reddit.com', 'http://www.facebook.com',
                           'http://www.instagram.com'])
+    end
+
+    it 'does not create a new bookmark if the URL is not valid' do
+      Bookmark.create(url: 'not a real bookmark', title: 'not a real bookmark')
+      bookmark = Bookmark.create(url: 'http://www.youtube.com',
+                                 title: 'Youtube')
+      Bookmark.update(id: bookmark.id, title: 'Instagram',
+                      url: 'http://www.instagram.com')
+      urls = Bookmark.all.map(&:url)
+      expect(urls).not_to include 'not a real bookmark'
     end
   end
 
